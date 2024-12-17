@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Center</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        video {
+            max-width: 90%;
+            max-height: 90%;
+            outline: none;
+            display: none;
+        }
+        .caption {
+            margin-top: 20px;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            text-align: center;
+        }
+        .name-input {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .name-input input {
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+        .name-input button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #555;
+            color: white;
+            cursor: pointer;
+        }
+        .name-input button:hover {
+            background-color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="name-input" id="inputContainer">
+        <input type="text" id="userName" placeholder="Enter your name">
+        <button onclick="setName()">Submit</button>
+    </div>
+    <video controls id="videoContainer">
+        <source src="video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="caption" id="nameCaption" style="display: none;">This is a sample video caption.</div>
+
+    <script>
+        function setName() {
+            const name = document.getElementById('userName').value;
+            const caption = document.getElementById('nameCaption');
+            const video = document.getElementById('videoContainer');
+            const inputContainer = document.getElementById('inputContainer');
+
+            if (name.trim() !== '') {
+                caption.textContent = `ПОШЁЛ НАХУЙ УЁБОК, ${name}!`;
+                caption.style.display = 'block';
+                video.style.display = 'block';
+                inputContainer.style.display = 'none';
+            } else {
+                alert('Please enter a valid name.');
+            }
+        }
+    </script>
+</body>
+</html>
