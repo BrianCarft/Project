@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Center</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
         body {
             margin: 0;
             background-color: black;
@@ -23,7 +25,7 @@
         .caption {
             margin-top: 20px;
             color: white;
-            font-family: Arial, sans-serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 16px;
             text-align: center;
         }
@@ -37,6 +39,7 @@
             border: none;
             border-radius: 5px;
             outline: none;
+            font-family: 'Montserrat', sans-serif;
         }
         .name-input button {
             margin-left: 10px;
@@ -47,22 +50,40 @@
             background-color: #555;
             color: white;
             cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
         }
         .name-input button:hover {
             background-color: #777;
+        }
+        .extra-button {
+            position: absolute;
+            top: 30px;
+            right: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            display: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .extra-button:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="name-input" id="inputContainer">
-        <input type="text" id="userName" placeholder="Enter your name">
-        <button onclick="setName()">Submit</button>
+        <input type="text" id="userName" placeholder="Какое у тебя имя уёбок?">
+        <button onclick="setName()">Хуярь</button>
     </div>
     <video controls id="videoContainer">
         <source src="video.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
     <div class="caption" id="nameCaption" style="display: none;">This is a sample video caption.</div>
+    <button class="extra-button" id="extraButton" onclick="window.location.href='https://t.me/endlessgg';">Заказать шлюху</button>
 
     <script>
         function setName() {
@@ -70,14 +91,16 @@
             const caption = document.getElementById('nameCaption');
             const video = document.getElementById('videoContainer');
             const inputContainer = document.getElementById('inputContainer');
+            const extraButton = document.getElementById('extraButton');
 
             if (name.trim() !== '') {
-                caption.textContent = `ПОШЁЛ НАХУЙ УЁБОК, ${name}!`;
+                caption.textContent = `Пошёл нахуй, ${name}!`;
                 caption.style.display = 'block';
                 video.style.display = 'block';
+                extraButton.style.display = 'inline-block';
                 inputContainer.style.display = 'none';
             } else {
-                alert('Please enter a valid name.');
+                alert('хули не вёл?.');
             }
         }
     </script>
