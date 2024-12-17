@@ -71,6 +71,87 @@
         .extra-button:hover {
             text-decoration: underline;
         }
+        .open-gallery {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            background-color: transparent;
+            color: white;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            display: none;
+        }
+        .open-gallery:hover {
+            background-color: #777;
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            text-align: center;
+            position: relative;
+        }
+        .modal-content img {
+            width: 284px;
+            height: 269px;
+            border-radius: 10px;
+        }
+        .close-modal {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 30px;
+            height: 30px;
+            background-color: #555;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        .close-modal:hover {
+            background-color: #777;
+        }
+        .memory-container {
+            position: fixed; /* Фиксированное положение */
+            bottom: 20px; /* Отступ от нижнего края */
+            right: 20px; /* Отступ от правого края */
+            display: flex; /* Отображение в строку */
+            align-items: center; /* Выравнивание по вертикали */
+            gap: 10px; /* Расстояние между текстом и фото */
+            z-index: 1000; /* Поверх других элементов */
+            display: none; /* Скрыто по умолчанию */
+        }
+        .memory-photo {
+            width: 153px; /* Фиксированная ширина */
+            height: 218px; /* Фиксированная высота */
+            object-fit: cover; /* Сохранение пропорций изображения */
+            border: none; /* Убираем рамку */
+        }
+        .memory-text {
+            color: white; /* Белый текст */
+            font-family: 'Montserrat', sans-serif; /* Шрифт */
+            font-size: 18px; /* Размер шрифта */
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.7); /* Тень для читаемости */
+        }
     </style>
 </head>
 <body>
@@ -83,26 +164,81 @@
         Your browser does not support the video tag.
     </video>
     <div class="caption" id="nameCaption" style="display: none;">This is a sample video caption.</div>
-    <button class="extra-button" id="extraButton" onclick="window.location.href='https://t.me/endlessgg';">Заказать шлюху</button>
+    <button class="extra-button" id="extraButton" onclick="randomLink()">Заказать шлюху</button>
 
-    <script>
-        function setName() {
-            const name = document.getElementById('userName').value;
-            const caption = document.getElementById('nameCaption');
-            const video = document.getElementById('videoContainer');
-            const inputContainer = document.getElementById('inputContainer');
-            const extraButton = document.getElementById('extraButton');
+    <button class="open-gallery" id="openGallery">Угадай чё высру</button>
 
-            if (name.trim() !== '') {
-                caption.textContent = `Пошёл нахуй, ${name}!`;
-                caption.style.display = 'block';
-                video.style.display = 'block';
-                extraButton.style.display = 'inline-block';
-                inputContainer.style.display = 'none';
-            } else {
-                alert('хули не вёл?.');
-            }
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <img id="modalImage" src="my-image.jpg" alt="Gallery Image">
+            <button class="close-modal" id="closeModal">&times;</button>
+        </div>
+    </div>
+
+    <div class="memory-container" id="memoryContainer">
+        <img src="images/image5.jpg" alt="Memory Photo" class="memory-photo">
+        <span class="memory-text">Святая память</span>
+    </div>
+
+<script>
+    const openGallery = document.getElementById('openGallery');
+    const imageModal = document.getElementById('imageModal');
+    const closeModal = document.getElementById('closeModal');
+    const modalImage = document.getElementById('modalImage');
+    const memoryContainer = document.getElementById('memoryContainer');
+
+    // Array of image paths
+    const images = [
+        'images/image1.jpg',
+        'images/image2.jpg',
+        'images/image3.jpg',
+        'images/image4.jpg'
+    ];
+
+    // Show random image on button click
+    openGallery.addEventListener('click', () => {
+        const randomIndex = Math.floor(Math.random() * images.length);
+        modalImage.src = images[randomIndex];
+        imageModal.classList.add('active');
+    });
+
+    // Close modal
+    closeModal.addEventListener('click', () => {
+        imageModal.classList.remove('active');
+    });
+
+    function setName() {
+        const name = document.getElementById('userName').value;
+        const caption = document.getElementById('nameCaption');
+        const video = document.getElementById('videoContainer');
+        const inputContainer = document.getElementById('inputContainer');
+        const extraButton = document.getElementById('extraButton');
+        const openGallery = document.getElementById('openGallery');
+
+        if (name.trim() !== '') {
+            caption.textContent = `Пошёл нахуй, ${name}!`;
+            caption.style.display = 'block';
+            video.style.display = 'block';
+            extraButton.style.display = 'inline-block';
+            openGallery.style.display = 'block';
+            inputContainer.style.display = 'none';
+            memoryContainer.style.display = 'flex'; // Показываем блок памяти
+        } else {
+            alert('хули не вёл?');
         }
-    </script>
+    }
+
+    function randomLink() {
+        var links = [
+            'https://t.me/endlessgg',
+            'https://t.me/brofifa',
+            'https://t.me/GarBu6a',
+            'https://t.me/Tayzer_233'
+        ];
+
+        var randomIndex = Math.floor(Math.random() * links.length);
+        window.location.href = links[randomIndex];
+    }
+</script>
 </body>
 </html>
