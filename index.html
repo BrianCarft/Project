@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>マイリンク</title>
+    <title>GROSST PIDR</title>
     <style>
         body {
             display: flex;
@@ -12,6 +12,8 @@
             height: 100vh;
             margin: 0;
             background-color: #000;
+            position: relative;
+            overflow: hidden;
         }
         img {
             position: absolute;
@@ -23,23 +25,32 @@
             opacity: 0;
         }
         #img1 {
-            width: 350px;
-            height: 300px;
+            width: 20%;
+            height: auto;
+            left: 25%;
+            top: 35%;
             scale: 0.3;
         }
         #img2 {
-            width: 420px;
-            height: 340px;
+            width: 24%;
+            height: auto;
+            left: 38%;
+            top: 32%;
             scale: 0.3;
         }
         #img3 {
-            width: 400px;
-            height: 380px;
+            width: 22%;
+            height: auto;
+            left: 55%;
+            top: 30%;
             scale: 0.3;
         }
         #img4 {
-            width: 380px;
-            height: 360px;
+            width: 25%;
+            height: auto;
+            left: 40%;
+            top: 75%;
+            transform: translate(-50%, -50%);
             scale: 0.15;
             opacity: 1;
         }
@@ -47,7 +58,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 50px;
+            padding: 30px;
             transition: transform 0.3s ease;
             cursor: pointer;
         }
@@ -57,31 +68,10 @@
         }
     </style>
     <script>
-        let img1X = 545, img1Y = 310;
-        let img2X = 745, img2Y = 300;
-        let img3X = 1010, img3Y = 275;
-        let img4X = 770, img4Y = 720;
-
         document.addEventListener("DOMContentLoaded", function() {
-            let img1 = document.getElementById("img1");
-            let img2 = document.getElementById("img2");
-            let img3 = document.getElementById("img3");
-            let img4 = document.getElementById("img4");
-
-            img1.style.left = img1X + "px";
-            img1.style.top = img1Y + "px";
-            img2.style.left = img2X + "px";
-            img2.style.top = img2Y + "px";
-            img3.style.left = img3X + "px";
-            img3.style.top = img3Y + "px";
-            img4.style.left = img4X + "px";
-            img4.style.top = img4Y + "px";
-
-            setTimeout(() => {
-                img1.style.opacity = "1";
-                img2.style.opacity = "1";
-                img3.style.opacity = "1";
-            }, 100);
+            document.getElementById("img1").style.opacity = "1";
+            document.getElementById("img2").style.opacity = "1";
+            document.getElementById("img3").style.opacity = "1";
         });
 
         function redirectToAnimation(url) {
