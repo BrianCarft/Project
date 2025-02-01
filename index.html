@@ -20,7 +20,7 @@
             opacity: 0;
         }
         #img1, #img2, #img3 {
-            opacity: 0; /* Начальное состояние для анимации появления */
+            opacity: 0;
         }
         #img1 {
             width: 350px;
@@ -41,7 +41,7 @@
             width: 380px;
             height: 360px;
             scale: 0.15;
-            opacity: 1; /* Без анимации появления */
+            opacity: 1;
         }
         .hover-zone {
             display: flex;
@@ -57,11 +57,10 @@
         }
     </style>
     <script>
-        // Задаем позиции изображений
-        let img1X = 545, img1Y = 310; // Координаты первого изображения
-        let img2X = 745, img2Y = 300; // Координаты второго изображения
-        let img3X = 1010, img3Y = 275; // Координаты третьего изображения
-        let img4X = 770, img4Y = 720; // Координаты четвертого изображения
+        let img1X = 545, img1Y = 310;
+        let img2X = 745, img2Y = 300;
+        let img3X = 1010, img3Y = 275;
+        let img4X = 770, img4Y = 720;
 
         document.addEventListener("DOMContentLoaded", function() {
             let img1 = document.getElementById("img1");
@@ -78,7 +77,6 @@
             img4.style.left = img4X + "px";
             img4.style.top = img4Y + "px";
 
-            // Плавное появление для img1, img2 и img3
             setTimeout(() => {
                 img1.style.opacity = "1";
                 img2.style.opacity = "1";
@@ -87,18 +85,18 @@
         });
 
         function redirectToAnimation(url) {
-            window.location.href = url;
+            window.location.replace(url);
         }
     </script>
 </head>
 <body>
-    <div class="hover-zone" onclick="redirectToAnimation('https:t.me/shnirw')">
+    <div class="hover-zone" onclick="redirectToAnimation('https://t.me/shnirw')">
         <img id="img1" src="/animation.apng" alt="Анимация 1">
     </div>
-    <div class="hover-zone" onclick="redirectToAnimation('https:www.faceit.com/ru/players/pepe_176')">
+    <div class="hover-zone" onclick="redirectToAnimation('https://www.faceit.com/ru/players/pepe_176')">
         <img id="img2" src="/animation2.apng" alt="Анимация 2">
     </div>
-    <div class="hover-zone" onclick="redirectToAnimation('https:steamcommunity.com/profiles/76561199025673005/')">
+    <div class="hover-zone" onclick="redirectToAnimation('https://steamcommunity.com/profiles/76561199025673005/')">
         <img id="img3" src="/animation3.apng" alt="Анимация 3">
     </div>
     <div>
