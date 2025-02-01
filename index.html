@@ -1,244 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Center</title>
+    <title>マイリンク</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
-
         body {
-            margin: 0;
-            background-color: black;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
+            background-color: #000;
         }
-        video {
-            max-width: 90%;
-            max-height: 90%;
-            outline: none;
-            display: none;
-        }
-        .caption {
-            margin-top: 20px;
-            color: white;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            text-align: center;
-        }
-        .name-input {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .name-input input {
-            padding: 10px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            outline: none;
-            font-family: 'Montserrat', sans-serif;
-        }
-        .name-input button {
-            margin-left: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            background-color: #555;
-            color: white;
-            cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-        }
-        .name-input button:hover {
-            background-color: #777;
-        }
-        .extra-button {
+        img {
             position: absolute;
-            top: 30px;
-            right: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: white;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            display: none;
-            font-family: 'Montserrat', sans-serif;
+            object-fit: cover;
+            transition: transform 0.3s ease, filter 0.3s ease, opacity 1s ease;
+            opacity: 0;
         }
-        .extra-button:hover {
-            text-decoration: underline;
+        #img1, #img2, #img3 {
+            opacity: 0; /* Начальное состояние для анимации появления */
         }
-        .open-gallery {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            padding: 10px;
-            font-size: 16px;
-            border: none;
-            background-color: transparent;
-            color: white;
-            cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            display: none;
+        #img1 {
+            width: 350px;
+            height: 300px;
+            scale: 0.3;
         }
-        .open-gallery:hover {
-            background-color: #777;
+        #img2 {
+            width: 420px;
+            height: 340px;
+            scale: 0.3;
         }
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+        #img3 {
+            width: 400px;
+            height: 380px;
+            scale: 0.3;
+        }
+        #img4 {
+            width: 380px;
+            height: 360px;
+            scale: 0.15;
+            opacity: 1; /* Без анимации появления */
+        }
+        .hover-zone {
             display: flex;
             justify-content: center;
             align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        .modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .modal-content {
-            text-align: center;
-            position: relative;
-        }
-        .modal-content img {
-            width: 284px;
-            height: 269px;
-            border-radius: 10px;
-        }
-        .close-modal {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            width: 30px;
-            height: 30px;
-            background-color: #555;
-            border: none;
-            color: white;
-            font-size: 24px;
+            padding: 50px;
+            transition: transform 0.3s ease;
             cursor: pointer;
-            border-radius: 50%;
         }
-        .close-modal:hover {
-            background-color: #777;
-        }
-        .memory-container {
-            position: fixed; /* Фиксированное положение */
-            bottom: 20px; /* Отступ от нижнего края */
-            right: 20px; /* Отступ от правого края */
-            display: flex; /* Отображение в строку */
-            align-items: center; /* Выравнивание по вертикали */
-            gap: 10px; /* Расстояние между текстом и фото */
-            z-index: 1000; /* Поверх других элементов */
-            display: none; /* Скрыто по умолчанию */
-        }
-        .memory-photo {
-            width: 153px; /* Фиксированная ширина */
-            height: 218px; /* Фиксированная высота */
-            object-fit: cover; /* Сохранение пропорций изображения */
-            border: none; /* Убираем рамку */
-        }
-        .memory-text {
-            color: white; /* Белый текст */
-            font-family: 'Montserrat', sans-serif; /* Шрифт */
-            font-size: 18px; /* Размер шрифта */
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.7); /* Тень для читаемости */
+        .hover-zone:hover img {
+            transform: scale(1.1);
+            filter: brightness(1.2);
         }
     </style>
+    <script>
+        // Задаем позиции изображений
+        let img1X = 545, img1Y = 310; // Координаты первого изображения
+        let img2X = 745, img2Y = 300; // Координаты второго изображения
+        let img3X = 1010, img3Y = 275; // Координаты третьего изображения
+        let img4X = 770, img4Y = 720; // Координаты четвертого изображения
+
+        document.addEventListener("DOMContentLoaded", function() {
+            let img1 = document.getElementById("img1");
+            let img2 = document.getElementById("img2");
+            let img3 = document.getElementById("img3");
+            let img4 = document.getElementById("img4");
+
+            img1.style.left = img1X + "px";
+            img1.style.top = img1Y + "px";
+            img2.style.left = img2X + "px";
+            img2.style.top = img2Y + "px";
+            img3.style.left = img3X + "px";
+            img3.style.top = img3Y + "px";
+            img4.style.left = img4X + "px";
+            img4.style.top = img4Y + "px";
+
+            // Плавное появление для img1, img2 и img3
+            setTimeout(() => {
+                img1.style.opacity = "1";
+                img2.style.opacity = "1";
+                img3.style.opacity = "1";
+            }, 100);
+        });
+
+        function redirectToAnimation(url) {
+            window.location.href = url;
+        }
+    </script>
 </head>
 <body>
-    <div class="name-input" id="inputContainer">
-        <input type="text" id="userName" placeholder="Какое у тебя имя уёбок?">
-        <button onclick="setName()">Хуярь</button>
+    <div class="hover-zone" onclick="redirectToAnimation('https:t.me/shnirw')">
+        <img id="img1" src="/animation.apng" alt="Анимация 1">
     </div>
-    <video controls id="videoContainer">
-        <source src="video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-    <div class="caption" id="nameCaption" style="display: none;">This is a sample video caption.</div>
-    <button class="extra-button" id="extraButton" onclick="randomLink()">Заказать шлюху</button>
-
-    <button class="open-gallery" id="openGallery">Угадай чё высру</button>
-
-    <div class="modal" id="imageModal">
-        <div class="modal-content">
-            <img id="modalImage" src="my-image.jpg" alt="Gallery Image">
-            <button class="close-modal" id="closeModal">&times;</button>
-        </div>
+    <div class="hover-zone" onclick="redirectToAnimation('https:www.faceit.com/ru/players/pepe_176')">
+        <img id="img2" src="/animation2.apng" alt="Анимация 2">
     </div>
-
-    <div class="memory-container" id="memoryContainer">
-        <img src="images/image5.jpg" alt="Memory Photo" class="memory-photo">
-        <span class="memory-text">Святая память</span>
+    <div class="hover-zone" onclick="redirectToAnimation('https:steamcommunity.com/profiles/76561199025673005/')">
+        <img id="img3" src="/animation3.apng" alt="Анимация 3">
     </div>
-
-<script>
-    const openGallery = document.getElementById('openGallery');
-    const imageModal = document.getElementById('imageModal');
-    const closeModal = document.getElementById('closeModal');
-    const modalImage = document.getElementById('modalImage');
-    const memoryContainer = document.getElementById('memoryContainer');
-
-    // Array of image paths
-    const images = [
-        'images/image1.jpg',
-        'images/image2.jpg',
-        'images/image3.jpg',
-        'images/image4.jpg'
-    ];
-
-    // Show random image on button click
-    openGallery.addEventListener('click', () => {
-        const randomIndex = Math.floor(Math.random() * images.length);
-        modalImage.src = images[randomIndex];
-        imageModal.classList.add('active');
-    });
-
-    // Close modal
-    closeModal.addEventListener('click', () => {
-        imageModal.classList.remove('active');
-    });
-
-    function setName() {
-        const name = document.getElementById('userName').value;
-        const caption = document.getElementById('nameCaption');
-        const video = document.getElementById('videoContainer');
-        const inputContainer = document.getElementById('inputContainer');
-        const extraButton = document.getElementById('extraButton');
-        const openGallery = document.getElementById('openGallery');
-
-        if (name.trim() !== '') {
-            caption.textContent = `Пошёл нахуй, ${name}!`;
-            caption.style.display = 'block';
-            video.style.display = 'block';
-            extraButton.style.display = 'inline-block';
-            openGallery.style.display = 'block';
-            inputContainer.style.display = 'none';
-            memoryContainer.style.display = 'flex'; // Показываем блок памяти
-        } else {
-            alert('хули не вёл?');
-        }
-    }
-
-    function randomLink() {
-        var links = [
-            'https://t.me/endlessgg',
-            'https://t.me/brofifa',
-            'https://t.me/GarBu6a',
-            'https://t.me/Tayzer_233'
-        ];
-
-        var randomIndex = Math.floor(Math.random() * links.length);
-        window.location.href = links[randomIndex];
-    }
-</script>
+    <div>
+        <img id="img4" src="/animation4.apng" alt="Изображение 4">
+    </div>
 </body>
 </html>
